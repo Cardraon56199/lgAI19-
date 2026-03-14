@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "신속 읽기 시스템",
+  "version": "1.0",
+  "description": "글의 핵심 논거를 하이라이트하고 진위성을 판단합니다.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["http://localhost:8000/*"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "quick-read-system@yourdomain.com"
+    }
+  }
+}

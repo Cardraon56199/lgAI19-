@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    # --- 여기서부터 추가 ---
+    env_file:
+      - .env
+    # ----------------------
+    environment:
+      - PYTHONUNBUFFERED=1
