@@ -1,17 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <style>
-    body { width: 200px; padding: 10px; font-family: sans-serif; }
-    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
-    button:hover { background: #0056b3; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기사 분석기</title>
+    <style>
+        body {
+            width: 300px;
+            padding: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #555;
+        }
+        select, input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #status {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <h3>신속 읽기</h3>
-  <button id="analyzeBtn">이 페이지 분석</button>
-  <div id="status"></div>
-  <script src="popup.js"></script>
+    <div class="container">
+        <h2>분석 설정</h2>
+        
+        <div class="input-group">
+            <label for="modeSelect">분석 모드</label>
+            <select id="modeSelect">
+                <option value="summary">핵심 요약 (3문장)</option>
+                <option value="balanced" selected>균형 분석 (5문장)</option>
+                <option value="detailed">상세 분석 (8문장)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="keywordInput">강조 키워드</label>
+            <input type="text" id="keywordInput" placeholder="예: 리눅스, AI, 실적">
+        </div>
+
+        <button id="analyzeBtn">분석 시작</button>
+        <div id="status">설정을 마치고 버튼을 누르세요.</div>
+    </div>
+
+    <script src="popup.js"></script>
 </body>
 </html>

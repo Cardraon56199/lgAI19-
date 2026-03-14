@@ -5,9 +5,9 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-    # --- 여기서부터 추가 ---
     env_file:
       - .env
-    # ----------------------
     environment:
       - PYTHONUNBUFFERED=1
+      - PYTHONIOENCODING=utf-8   # 파이썬 입출력 인코딩 설정
+      - LANG=C.UTF-8             # 시스템 기본 언어 설정

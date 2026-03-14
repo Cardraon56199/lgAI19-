@@ -1,27 +1,50 @@
-document.getElementById('analyzeBtn').addEventListener('click', async () => {
-  const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
-  const statusEl = document.getElementById('status');
-  statusEl.innerText = '데이터 분석 중...';
+document.addEventListener('DOMContentLoaded', () => {
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const statusDiv = document.getElementById('status');
 
-  try {
-    const response = await fetch('http://localhost:8000/analyze', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: tab.url })
+    analyzeBtn.addEventListener('click', async () => {
+        const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+        
+        statusDiv.textContent = "분석 중... (Grok-4 가동 중)";
+        analyzeBtn.disabled = true;
+
+        try {
+            // 1. 백엔드 통신
+            const response = await fetch('http://localhost:8000/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    url: tab.url,
+                    mode: document.getElementById('modeSelect').value,
+                    keyword: document.getElementById('keywordInput').value
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.status === "success") {
+                // 2. 메시징 대신 '직접 실행' 방식 사용
+                // 결과 데이터를 content.js에 주입하면서 함수 실행
+                await browser.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    func: (highlightData) => {
+                        // 만약 content.js가 로드되어 있다면 그 안의 함수를 실행
+                        if (typeof renderHighlights === "function") {
+                            renderHighlights(highlightData);
+                        } else {
+                            console.error("Siddim's Chest: renderHighlights 함수를 찾을 수 없습니다. content.js가 로드되었는지 확인하세요.");
+                        }
+                    },
+                    args: [result.data] // 백엔드 결과 데이터를 인자로 전달
+                });
+                
+                statusDiv.textContent = "분석 완료!";
+            }
+        } catch (error) {
+            console.error("최종 에러:", error);
+            statusDiv.textContent = "에러: " + error.message;
+        } finally {
+            analyzeBtn.disabled = false;
+        }
     });
-    
-    const result = await response.json();
-    
-    // [파폭 개발자 도구 콘솔 출력]
-    console.log("--- 서버 응답 데이터 상세 ---");
-    console.log("전체 데이터:", result);
-    console.log("문장 개수:", result.data ? result.data.length : 0);
-    
-    // content.js로 데이터 전달
-    await browser.tabs.sendMessage(tab.id, { command: "highlight", data: result });
-    statusEl.innerText = '분석 및 하이라이트 완료!';
-  } catch (error) {
-    console.error("통신 에러:", error);
-    statusEl.innerText = '에러 발생 (콘솔 확인)';
-  }
 });
