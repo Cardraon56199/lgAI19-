@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // 1. 백엔드 통신
-            const response = await fetch('http://localhost:8000/analyze', {
+            const response = await fetch('https://reasons-school-august-phoenix.trycloudflare.com/analyze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
