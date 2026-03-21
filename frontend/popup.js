@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // 1. 백엔드 통신
-            const response = await fetch('https://camera-tickets-sarah-packages.trycloudflare.com', {
+            const response = await fetch('https://gazette-bullet-expertise-targeted.trycloudflare.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
