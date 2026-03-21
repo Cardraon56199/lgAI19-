@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // 1. 백엔드 통신
-            const response = await fetch('http://121.146.208.81:27765', {
+            const response = await fetch('https://smallest-animals-remains-acc.trycloudflare.com/analyze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
