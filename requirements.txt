@@ -16,3 +16,6 @@ numpy
 # 유틸리티
 python-multipart
 requests
+
+# API
+openai
