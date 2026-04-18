@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapid Reading Sidebar</title>
+    <link rel="stylesheet" href="sidebar.css">
+    <style>
+        /* 긴급 수혈용 인라인 스타일 (sidebar.css에 합쳐도 됨) */
+        .gauge-container {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        .gauge-fill {
+            height: 100%;
+            background: #28a745; /* 기본 초록색 */
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .wiki-btn {
+            display: inline-block;
+            color: #0275d8;
+            font-size: 0.8em;
+            cursor: pointer;
+            font-weight: bold;
+            vertical-align: super;
+            margin-left: 3px;
+            text-decoration: none;
+        }
+        .wiki-btn:hover { text-decoration: underline; }
+        
+        /* 팝업 애니메이션 */
+        @keyframes popupFade {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Team 19: Rapid Reading</h2>
+        <div class="status-badge">
+            <span id="engine-status" class="dot"></span> 
+            <span id="engine-text">Engine Ready</span>
+        </div>
+    </div>
+
+    <div class="score-section">
+        <p class="label">📊 논리 완결성 지표 (BERT-NLI)</p>
+        <div class="gauge-container">
+            <div id="logic-gauge" class="gauge-fill"></div>
+        </div>
+        <p class="score-value"><span id="logic-score">0</span> / 100.0</p>
+    </div>
+
+    <div class="action-section">
+        <button id="analyze-btn">페이지 분석 시작</button>
+        <p class="stats">Processing: <span id="process-time">0.0000</span>s</p>
+    </div>
+
+    <hr>
+
+    <div class="result-section">
+        <p class="label">🎯 핵심 문장 및 XAI 판단 근거</p>
+        <ul id="highlight-list">
+            <li class="empty-msg">분석 버튼을 누르면 핵심 문장이 표시됩니다.</li>
+        </ul>
+    </div>
+
+    <script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# 핵심 엔진 및 딥러닝 (CPU/내장 GPU 최적화)
+torch --index-url https://download.pytorch.org/whl/cpu
+transformers
+tokenizers
+accelerate
+
+# 백엔드 서버 (FastAPI 및 비동기 처리)
+fastapi
+uvicorn[standard]
+pydantic
+
+# 텍스트 추출 및 전처리
+trafilatura
+numpy
+
+# 유틸리티
+python-multipart
+requests

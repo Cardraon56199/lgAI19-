@@ -1,0 +1,12 @@
+cat <<EOF > .gitignore
+venv/
+build_venv/
+build/
+dist/
+final_model/
+encrypted_model/
+__pycache__/
+.DS_Store
+secret.key
+*.spec
+EOF

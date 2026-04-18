@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "신속 읽기 시스템 - 팀 19",
+  "version": "1.0",
+  "description": "글의 핵심 논거를 하이라이트하고 진위성을 판단합니다.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*",
+    "<all_urls>"
+  ],
+  "action": {
+    "default_title": "신속 읽기 분석"
+  },
+  "sidebar_action": {
+    "default_panel": "sidebar.html",
+    "default_title": "신속 읽기 사이드바",
+    "open_at_install": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "quick-read-system@team19.local",
+      "strict_min_version": "101.0"
+    }
+  }
+}
